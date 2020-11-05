@@ -1,14 +1,13 @@
 require 'test_helper'
 
 class UsersEditTest < ActionDispatch::IntegrationTest
-  require 'test_helper'
-
   
     def setup
       @user = users(:michael)
     end
   
     test "unsuccessful edit" do
+      log_in_as(@user)
       get edit_user_path(@user)
       assert_template 'users/edit'
       patch user_path(@user), params: { user: { name:  "",
@@ -21,6 +20,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     end
 
   test "successful edit" do
+    log_in_as(@user)
     get edit_user_path(@user)
     assert_template 'users/edit'
     name  = "Foo Bar"
