@@ -12,16 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2020_11_16_150914) do
 
-  create_table "comments", force: :cascade do |t|
-    t.text "body"
-    t.integer "user_id", null: false
-    t.integer "post_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
   create_table "microposts", force: :cascade do |t|
     t.text "content"
     t.integer "user_id", null: false
@@ -29,16 +19,6 @@ ActiveRecord::Schema.define(version: 2020_11_16_150914) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_microposts_on_user_id"
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.text "content"
-    t.integer "likes"
-    t.string "body"
-    t.integer "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,8 +37,5 @@ ActiveRecord::Schema.define(version: 2020_11_16_150914) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "comments", "posts"
-  add_foreign_key "comments", "users"
   add_foreign_key "microposts", "users"
-  add_foreign_key "posts", "users"
 end
